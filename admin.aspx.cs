@@ -11,9 +11,9 @@ namespace emppro
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            if(!IsPostBack)
+            if (!IsPostBack)
             {
-                lblMsg.Text = Request.QueryString["Parameter"].ToString();
+                lblMsg.Text = (string)Session["Name"];
             }
         }
 
