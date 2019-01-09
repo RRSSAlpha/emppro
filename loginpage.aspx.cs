@@ -35,15 +35,27 @@ namespace emppro
                 if (Sdr.Read())
                 {
                     int Role = (int)Sdr["RoleId"];
-                    string Name = (string)Sdr["EmpName"];
-
-                    if (Role == 20001)
+                    string df = (string)Sdr["DeleteFlag"];
+                    string empname = (string)Sdr["EmpName"];
+                    Session.Add("Name",empname);
+                    Session.Add("empid",EmpId );
+                    Session.Add("Role1", Role);
+                    Session.Add("df1", df);
+                    if (Role == 20001 && df == "N")
                     {
-                        Response.Redirect("admin.aspx?Parameter="+Name, true);
+                        Response.Redirect("admin.aspx", true);
                     }
-                    else if (Role != 20001)
+                    else if (Role != 20001 && df == "N")
                     {
-                        Response.Redirect("search.aspx?Parameter=" + Name, true);
+                        if(Pass!="pass1234")
+                        Response.Redirect("search.aspx", true);
+                        else
+                        Response.Redirect("ResetPassword.aspx", true);
+
+                    }
+                    else
+                    {
+                        lblMsg.Text = "User doesn't exist";
                     }
                 }
                 else
